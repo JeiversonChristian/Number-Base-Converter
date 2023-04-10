@@ -7,7 +7,8 @@
 
 ### This project must have/do:
 
-- [ ] to read and save a number that the user types.
+- [x] to read and save a number that the user types.
+- [x] check if what user typed is a natural number
 - [ ] to know what numerical base that number is.
 - [ ] to convert that number to all others predefined numerical bases.
 - [ ] to show that conversion to the user. 
