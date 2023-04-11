@@ -9,7 +9,7 @@
 
 - [x] to read and save a number that the user types.
 - [x] check if what user typed is a natural number
-- [ ] to know what numerical base that number is, asking the user.
+- [x] to know what numerical base that number is, asking the user.
 - [ ] check if what the user said is true.
 - [ ] to convert that number to all others predefined numerical bases.
 - [ ] to show that conversion to the user. 
