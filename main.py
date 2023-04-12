@@ -61,13 +61,29 @@ def ask_number(base):
                print("O número que digitou não corresponde à base inserida.")
        else:
            print("Este não é um número válido.")
-    print(number_str)
-    print(separate_digits_str(number_str))
-    print(base)
+    return number_str
 
+def convert_to_dec(number_str, base):
+    digits_str = []
+    base_number = 0
+    number_dec = 0
+    
+    if base == "2":
+        base_number = 2
+    
+    if base != "4":
+        digits_str = separate_digits_str(number_str)
+        for i in range(len(digits_str)-1):
+            number_dec += int(digits_str[i]) * (base_number ** (len(digits_str) - 1 - i))
 
+    return number_dec
+
+def convert_to_bases(number_str, base):
+    number_dec = convert_to_dec(number_str, base)
+    print(number_dec)
 
 print("Este programa apenas aceita número positivos e sem vírgula")
 base = ask_base()
-ask_number(base)
+number_str = ask_number(base)
+convert_to_bases(number_str, base)
 
