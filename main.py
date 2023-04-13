@@ -77,7 +77,7 @@ def convert_to_dec(number_str, base):
     elif base == "3":
         base_number = 8
     
-    elif base != "4":
+    if base != "4":
         digits_str = separate_digits_str(number_str)
         for i in range(len(digits_str)):
             digit = int(digits_str[i])
@@ -102,8 +102,8 @@ def convert_to_dec(number_str, base):
             else:
                 digit = int(digits_str[i])
 
-            number_dec += digit * (base_number ** (len(digits_str) - 1 - i))               
-
+            number_dec += digit * (base_number ** (len(digits_str) - 1 - i))
+                   
     return str(number_dec)
 
 def convert_to_specific_base(number_base_dec_str, specifc_base):
