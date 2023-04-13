@@ -61,6 +61,9 @@ def ask_number(base):
                print("O número que digitou não corresponde à base inserida.")
        else:
            print("Este não é um número válido.")
+    
+    if base == '4':
+        number_str = number_str.upper()
     return number_str
 
 def convert_to_dec(number_str, base):
@@ -84,17 +87,17 @@ def convert_to_dec(number_str, base):
         base_number = 16
         digits_str = separate_digits_str(number_str)
         for i in range(len(digits_str)):
-            if digits_str[i].upper() == 'A':
+            if digits_str[i] == 'A':
                 digit = 10
-            elif digits_str[i].upper() == 'B':
+            elif digits_str[i] == 'B':
                 digit = 11
-            elif digits_str[i].upper() == 'C':
+            elif digits_str[i] == 'C':
                 digit = 12
-            elif digits_str[i].upper() == 'D':
+            elif digits_str[i] == 'D':
                 digit = 13
-            elif digits_str[i].upper() == 'E':
+            elif digits_str[i] == 'E':
                 digit = 14
-            elif digits_str[i].upper() == 'F':
+            elif digits_str[i] == 'F':
                 digit = 15
             else:
                 digit = int(digits_str[i])
