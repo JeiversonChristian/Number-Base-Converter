@@ -70,11 +70,14 @@ def convert_to_dec(number_str, base):
     
     if base == "2":
         base_number = 2
+    if base == "3":
+        base_number = 8
     
     if base != "4":
         digits_str = separate_digits_str(number_str)
-        for i in range(len(digits_str)-1):
+        for i in range(len(digits_str)):
             number_dec += int(digits_str[i]) * (base_number ** (len(digits_str) - 1 - i))
+            print(f"{int(digits_str[i])} x {base_number} ^ {len(digits_str) - 1 - i}")
 
     return number_dec
 
