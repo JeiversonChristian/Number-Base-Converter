@@ -7,3 +7,19 @@
 # To import the Builder - that will allow to connect the screen.kv to main.py
 # To creat the App
 # To creat the build function
+
+# To import the App
+from kivy.app import App
+
+# To import the Builder - that will allow to connect the screen.kv to main.py
+from kivy.lang import Builder
+
+# Graphical User Interface
+GUI = Builder.load_file("screen.kv")
+
+# It's my application
+class Application(App):
+    
+    # Basic function - when build the application, show me the screen
+    def build(self):
+        return GUI
