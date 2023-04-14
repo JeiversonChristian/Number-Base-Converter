@@ -24,5 +24,17 @@ class Application(App):
     def build(self):
         return GUI
     
+    # Define what will happen when the App is open
+    def on_start(self):
+        
+        # root is the screen.kv
+        self.root.ids["base_message"].text = "Digite o nº da base do número que você vai digitar:"
+        self.root.ids["number_message"].text = "Digite o seu número:"
+        self.root.ids["decimal_number"].text = "Decimal:"
+        self.root.ids["binary_number"].text = "Binário:"
+        self.root.ids["octal_number"].text = "Octal:"
+        self.root.ids["hexadecimal_number"].text = "Hexadecimal:"
+
+# To run the application    
 Application().run()
     
