@@ -23,3 +23,6 @@ class Application(App):
     # Basic function - when build the application, show me the screen
     def build(self):
         return GUI
+    
+Application().run()
+    
