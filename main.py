@@ -9,35 +9,30 @@ class MyGridLayout(GridLayout):
     def __init__(self, **kwargs):
         super(MyGridLayout, self).__init__(**kwargs)
 
-        self.cols = 2
+        self.cols = 1
 
-        self.add_widget(Label(text="Name: "))
-        self.name = TextInput(multiline=False)
-        self.add_widget(self.name)
+        self.base_text1 = "1 - Decimal | 2 - Binária | 3 - Octal | 4 - Hexadecimal"
+        self.add_widget(Label(text=self.base_text1))
 
-        self.add_widget(Label(text="Favorite Pizza: "))
-        self.pizza = TextInput(multiline=False)
-        self.add_widget(self.pizza)
+        self.base_text2 = "Qual é a base do seu número? (APENAS O Nº DA OPÇÃO)"
+        self.add_widget(Label(text=self.base_text2))
+        self.base_option_str = TextInput(multiline=False)
+        self.add_widget(self.base_option_str)
 
-        self.add_widget(Label(text="Favorite Color: "))
-        self.color = TextInput(multiline=False)
-        self.add_widget(self.color)
+        self.number_text = "Digite o seu número:"
+        self.add_widget(Label(text=self.number_text))
+        self.number_str = TextInput(multiline=False)
+        self.add_widget(self.number_str)
 
         self.submit = Button(text="Submit", font_size=32)
         self.submit.bind(on_press=self.press)
         self.add_widget(self.submit)
 
     def press(self, instance):
-        name = self.name.text
-        pizza = self.pizza.text
-        color = self.color.text
+        base_option_str = self.base_option_str.text
+        number_str = self.number_str.text
 
-        #print(f"Hello, {name}. You like {pizza} pizza and the color {color}.")
-        self.add_widget(Label(text=f"Hello, {name}. You like {pizza} pizza and the color {color}."))
-
-        self.name.text = ""
-        self.pizza.text = ""
-        self.color.text = ""
+        self.add_widget(Label(text=f"Base: {base_option_str} | Número: {number_str}"))
 
 class MyApp(App):
     def build(self):
