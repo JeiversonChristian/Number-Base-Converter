@@ -28,11 +28,33 @@ class MyGridLayout(GridLayout):
         self.submit.bind(on_press=self.press)
         self.add_widget(self.submit)
 
+        self.answer = Label(text="")
+        self.add_widget(self.answer)
+
+    def separate_digits_str(self, number_str):
+        digits_str = list(number_str)
+        return digits_str
+    
+    def check_base_text(self, base_option_str):
+        base = base_option_str
+        if base!="1" and base!="2" and base!="3" and base!="4":
+            return False
+        else:
+            return True        
+
     def press(self, instance):
+        
         base_option_str = self.base_option_str.text
         number_str = self.number_str.text
 
-        self.add_widget(Label(text=f"Base: {base_option_str} | Número: {number_str}"))
+        base_text_test = self.check_base_text(base_option_str)
+
+        if base_text_test == False:
+            self.answer.text = "Base inválida - digite o nº da opção."
+        elif base_text_test == True:
+            self.answer.text = "Base ok"
+
+        #self.add_widget(Label(text=f"Base: {base_option_str} | Número: {number_str}"))
 
 class MyApp(App):
     def build(self):
