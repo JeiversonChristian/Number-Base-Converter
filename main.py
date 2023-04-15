@@ -74,7 +74,119 @@ class MyGridLayout(GridLayout):
             # So the number is already checked and it is impossible that there is any digit > 9 that is not one of the allowed letters
     
         return True # If everything went ok, return True
+    
+    def convert_to_dec(self, number_str, base_option_str):
+        base = base_option_str
+        digits_str = []
+        digit = 0
+        base_number = 0
+        number_dec = 0
+    
+        if base == "2":
+            base_number = 2
+        elif base == "3":
+            base_number = 8
+    
+        if base != "4":
+            digits_str = self.separate_digits_str(number_str)
+            for i in range(len(digits_str)):
+                digit = int(digits_str[i])
+                number_dec += digit * (base_number ** (len(digits_str) - 1 - i))
 
+        else:
+            base_number = 16
+            digits_str = self.separate_digits_str(number_str)
+            for i in range(len(digits_str)):
+
+                if digits_str[i] == 'A':
+                    digit = 10
+                elif digits_str[i] == 'B':
+                    digit = 11
+                elif digits_str[i] == 'C':
+                    digit = 12
+                elif digits_str[i] == 'D':
+                    digit = 13
+                elif digits_str[i] == 'E':
+                    digit = 14
+                elif digits_str[i] == 'F':
+                    digit = 15
+                else:
+                    digit = int(digits_str[i])
+
+                number_dec += digit * (base_number ** (len(digits_str) - 1 - i))
+                   
+        return str(number_dec)
+    
+    def convert_to_specific_base(self, number_base_dec_str, specifc_base):
+    
+        converted_number_str = ''
+        number_base_dec_int = int(number_base_dec_str)
+        div_rest = 0
+        div_int = specifc_base + 1
+        converted_number_reverse = []
+        converted_number= []
+
+        dig_hex = ''
+
+        while div_int >= specifc_base:
+            div_rest = number_base_dec_int % specifc_base
+            if div_rest > 9:
+                if div_rest == 10:
+                    dig_hex = 'A'
+                elif div_rest == 11:
+                    dig_hex = 'B'
+                elif div_rest == 12:
+                    dig_hex = 'C'
+                elif div_rest == 13:
+                    dig_hex = 'D'
+                elif div_rest == 14:
+                    dig_hex = 'E'
+                else:
+                    dig_hex = 'F'
+                converted_number_reverse.append(dig_hex)
+            else:    
+                converted_number_reverse.append(div_rest)
+            div_int = number_base_dec_int // specifc_base
+            number_base_dec_int = div_int
+        if div_int > 9:
+            converted_number_reverse.append(dig_hex)
+        else:
+            converted_number_reverse.append(div_int)
+
+        converted_number = list(reversed(converted_number_reverse))
+        converted_number_str = converted_number_str.join(str(digit) for digit in converted_number)
+
+        return converted_number_str
+    
+    def convert_to_bases(self, number_str, base_option_str):
+        base = base_option_str
+        number_dec = ""
+        number_bi = ""
+        number_oct = ""
+        number_hex = ""
+
+        if base == "1":
+            number_dec = number_str
+            number_bi = self.convert_to_specific_base(number_dec, 2)
+            number_oct = self.convert_to_specific_base(number_dec, 8)
+            number_hex = self.convert_to_specific_base(number_dec, 16)
+        elif base == "2":
+            number_dec = self.convert_to_dec(number_str, base)
+            number_bi = number_str
+            number_oct = self.convert_to_specific_base(number_dec, 8)
+            number_hex = self.convert_to_specific_base(number_dec, 16)
+        elif base == "3":
+            number_dec = self.convert_to_dec(number_str, base)
+            number_bi = self.convert_to_specific_base(number_dec, 2)
+            number_oct = number_str
+            number_hex = self.convert_to_specific_base(number_dec, 16)
+        elif base == "4":
+            number_dec = self.convert_to_dec(number_str, base)
+            number_bi = self.convert_to_specific_base(number_dec, 2)
+            number_oct = self.convert_to_specific_base(number_dec, 8)
+            number_hex = number_str
+
+        self.answer.text = f"Decimal: {number_dec}\nBinário: {number_bi}\nOctal: {number_oct}\nHexadecimal: {number_hex}"
 
     def press(self, instance):
         
@@ -93,9 +205,7 @@ class MyGridLayout(GridLayout):
             elif match_base_number_teste == False:
                 self.answer.text = "O seu número não é da base que você indicou."
             else:
-                self.answer.text = "Tudo ok"
-
-        #self.add_widget(Label(text=f"Base: {base_option_str} | Número: {number_str}"))
+                self.convert_to_bases(number_str, base_option_str)
 
 class MyApp(App):
     def build(self):
