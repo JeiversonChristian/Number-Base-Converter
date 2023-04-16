@@ -17,20 +17,23 @@ class MyGridLayout(GridLayout):
         self.cols = 1
 
         # Layout elements
+        self.initial_text = f"Este aplicativo apenas aceita números não negativos e sem vírgula.\nO seu número será convertido para todas as bases disponíveis."
+        self.add_widget(Label(text=self.initial_text))
+
         self.base_text1 = "1 - Decimal | 2 - Binária | 3 - Octal | 4 - Hexadecimal"
         self.add_widget(Label(text=self.base_text1))
 
         self.base_text2 = "Qual é a base do seu número? (APENAS O Nº DA OPÇÃO)"
         self.add_widget(Label(text=self.base_text2))
-        self.base_option_str = TextInput(multiline=False)
+        self.base_option_str = TextInput(multiline=False, halign="center")
         self.add_widget(self.base_option_str)
 
         self.number_text = "Digite o seu número:"
         self.add_widget(Label(text=self.number_text))
-        self.number_str = TextInput(multiline=False)
+        self.number_str = TextInput(multiline=False, halign="center")
         self.add_widget(self.number_str)
 
-        self.submit = Button(text="Submit", font_size=32)
+        self.submit = Button(text="Submit")
         self.submit.bind(on_press=self.press)
         self.add_widget(self.submit)
 
@@ -199,7 +202,7 @@ class MyGridLayout(GridLayout):
             number_oct = self.convert_to_specific_base(number_dec, 8)
             number_hex = number_str
 
-        self.answer.text = f"Decimal: {number_dec}\nBinário: {number_bi}\nOctal: {number_oct}\nHexadecimal: {number_hex}"
+        self.answer.text = f"Decimal: {number_dec} | Binário: {number_bi} | Octal: {number_oct} | Hexadecimal: {number_hex}"
 
     # Active when press the button
     def press(self, instance):
