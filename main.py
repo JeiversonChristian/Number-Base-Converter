@@ -17,28 +17,39 @@ class MyGridLayout(GridLayout):
         self.cols = 1
 
         # Layout elements
-        self.initial_text = f"Este aplicativo apenas aceita números não negativos e sem vírgula.\nO seu número será convertido para todas as bases disponíveis."
-        self.add_widget(Label(text=self.initial_text))
+        self.initial_text = "CONVERSOR DE BASES"
+        self.add_widget(Label(color=(0,1,0,1),text=self.initial_text, bold=True, font_size='24'))
 
-        self.base_text1 = "1 - Decimal | 2 - Binária | 3 - Octal | 4 - Hexadecimal"
+        self.base_text1 = "1 - Decimal | 2 - Binário | 3 - Octal | 4 - Hexadecimal"
         self.add_widget(Label(text=self.base_text1))
 
-        self.base_text2 = "Qual é a base do seu número? (APENAS O Nº DA OPÇÃO)"
+        self.base_text2 = f"Qual é a base do seu número?\n  (APENAS O Nº DA OPÇÃO)"
         self.add_widget(Label(text=self.base_text2))
+        self.base_option_str = ""
         self.base_option_str = TextInput(multiline=False, halign="center")
         self.add_widget(self.base_option_str)
 
         self.number_text = "Digite o seu número:"
         self.add_widget(Label(text=self.number_text))
+        self.number_str = ""
         self.number_str = TextInput(multiline=False, halign="center")
         self.add_widget(self.number_str)
 
-        self.submit = Button(text="Submit")
+        self.submit = Button(text="CONVERTER", background_color=(0, 1, 0, 1))
         self.submit.bind(on_press=self.press)
         self.add_widget(self.submit)
 
-        self.answer = Label(text="")
-        self.add_widget(self.answer)
+        self.answer1 = Label(text="Decimal:")
+        self.add_widget(self.answer1)
+
+        self.answer2 = Label(text="Binário:")
+        self.add_widget(self.answer2)
+
+        self.answer3 = Label(text="Octal:")
+        self.add_widget(self.answer3)
+
+        self.answer4 = Label(text="Hexadecimal:")
+        self.add_widget(self.answer4)
 
     # Check if the text of the base option is valid    
     def check_base_text(self, base_option_str):
@@ -214,27 +225,37 @@ class MyGridLayout(GridLayout):
             number_oct = self.convert_to_specific_base(number_dec, 8)
             number_hex = number_str
 
-        self.answer.text = f"Decimal: {number_dec} | Binário: {number_bi} | Octal: {number_oct} | Hexadecimal: {number_hex}"
+        self.answer1.text = f"Decimal: {number_dec}"
+        self.answer2.text = f"Binário: {number_bi}"
+        self.answer3.text = f"Octal: {number_oct}"
+        self.answer4.text = f"Hexadecimal: {number_hex}"
 
     # Active when press the button
     def press(self, instance):
+
+        if self.base_option_str.text == "" or self.number_str.text == "":
+            self.answer1.text = f"FALTA"
+            self.answer2.text = f"base"
+            self.answer3.text = f"e/ou"
+            self.answer4.text = f"número"
+        else:
         
-        base_option_str = self.base_option_str.text
-        number_str = self.number_str.text
+            base_option_str = self.base_option_str.text
+            number_str = self.number_str.text
 
-        base_text_test = self.check_base_text(base_option_str)
-        number_text_test = self.check_number_text(number_str)
-        match_base_number_teste = self.match_base_number(number_str, base_option_str)
+            base_text_test = self.check_base_text(base_option_str)
+            number_text_test = self.check_number_text(number_str)
+            match_base_number_teste = self.match_base_number(number_str, base_option_str)
 
-        if base_text_test == False:
-            self.answer.text = "Base inválida - digite o nº da opção."
-        elif base_text_test == True:
-            if number_text_test == False:
-                self.answer.text = "Número inválido - verifique"
-            elif match_base_number_teste == False:
-                self.answer.text = "O seu número não é da base que você indicou."
-            else:
-                self.convert_to_bases(number_str, base_option_str)
+            if base_text_test == False:
+                self.answer.text = "Base inválida - digite o nº da opção."
+            elif base_text_test == True:
+                if number_text_test == False:
+                    self.answer.text = "Número inválido - verifique"
+                elif match_base_number_teste == False:
+                    self.answer.text = "O seu número não é da base que você indicou."
+                else:
+                    self.convert_to_bases(number_str, base_option_str)
 
 # The application
 class MyApp(App):
