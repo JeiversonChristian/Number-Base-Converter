@@ -1,3 +1,4 @@
+# Importing libraries
 import kivy
 from kivy.app import App
 from kivy.uix.label import Label
@@ -5,12 +6,17 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 
+# Layout and all functions
 class MyGridLayout(GridLayout):
+
+    # Creating the layout
     def __init__(self, **kwargs):
         super(MyGridLayout, self).__init__(**kwargs)
 
+        # Columns number
         self.cols = 1
 
+        # Layout elements
         self.base_text1 = "1 - Decimal | 2 - Binária | 3 - Octal | 4 - Hexadecimal"
         self.add_widget(Label(text=self.base_text1))
 
@@ -30,18 +36,21 @@ class MyGridLayout(GridLayout):
 
         self.answer = Label(text="")
         self.add_widget(self.answer)
-    
+
+    # Check if the text of the base option is valid    
     def check_base_text(self, base_option_str):
         base = base_option_str
         if base!="1" and base!="2" and base!="3" and base!="4":
             return False
         else:
             return True
-        
+
+    # Separate the digits of the number in a vetor      
     def separate_digits_str(self, number_str):
         digits_str = list(number_str)
         return digits_str
 
+    # Check if the text of the number is valid
     def check_number_text(self, number_str):
         number_test = False
         digits_str = self.separate_digits_str(number_str)
@@ -52,6 +61,7 @@ class MyGridLayout(GridLayout):
                 number_test = True
         return number_test
     
+    # Check if the number matches with its base
     def match_base_number(self, number_str, base_option_str):
         base = base_option_str
         digits_str = self.separate_digits_str(number_str)
@@ -75,6 +85,7 @@ class MyGridLayout(GridLayout):
     
         return True # If everything went ok, return True
     
+    # Convert the number to the decimal base
     def convert_to_dec(self, number_str, base_option_str):
         base = base_option_str
         digits_str = []
@@ -117,6 +128,7 @@ class MyGridLayout(GridLayout):
                    
         return str(number_dec)
     
+    # Convert a decimal number to a specific base
     def convert_to_specific_base(self, number_base_dec_str, specifc_base):
     
         converted_number_str = ''
@@ -158,6 +170,7 @@ class MyGridLayout(GridLayout):
 
         return converted_number_str
     
+    # Convert a number to all available bases
     def convert_to_bases(self, number_str, base_option_str):
         base = base_option_str
         number_dec = ""
@@ -188,6 +201,7 @@ class MyGridLayout(GridLayout):
 
         self.answer.text = f"Decimal: {number_dec}\nBinário: {number_bi}\nOctal: {number_oct}\nHexadecimal: {number_hex}"
 
+    # Active when press the button
     def press(self, instance):
         
         base_option_str = self.base_option_str.text
@@ -207,9 +221,13 @@ class MyGridLayout(GridLayout):
             else:
                 self.convert_to_bases(number_str, base_option_str)
 
+# The application
 class MyApp(App):
+
+    # Build and return the layout
     def build(self):
         return MyGridLayout()
-    
+
+# Run the application    
 if __name__ == '__main__':
     MyApp().run()
