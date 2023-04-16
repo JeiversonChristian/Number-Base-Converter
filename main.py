@@ -26,13 +26,13 @@ class MyGridLayout(GridLayout):
         self.base_text2 = f"Qual é a base do seu número?\n  (APENAS O Nº DA OPÇÃO)"
         self.add_widget(Label(text=self.base_text2))
         self.base_option_str = ""
-        self.base_option_str = TextInput(multiline=False, halign="center")
+        self.base_option_str = TextInput(multiline=False, halign="center", size_hint=(0.5, 0.5))
         self.add_widget(self.base_option_str)
 
         self.number_text = "Digite o seu número:"
         self.add_widget(Label(text=self.number_text))
         self.number_str = ""
-        self.number_str = TextInput(multiline=False, halign="center")
+        self.number_str = TextInput(multiline=False, halign="center", size_hint=(0.5, 0.5))
         self.add_widget(self.number_str)
 
         self.submit = Button(text="CONVERTER", background_color=(0, 1, 0, 1))
@@ -66,14 +66,17 @@ class MyGridLayout(GridLayout):
 
     # Check if the text of the number is valid
     def check_number_text(self, number_str):
-        number_test = False
+        # number_test = False
         digits_str = self.separate_digits_str(number_str)
         for i in digits_str:
+            if i.isdigit() == True:
+                if int(i) < 0:
+                    return False
             if i.isdigit() == False and (i.upper()!='A') and (i.upper()!='B') and (i.upper()!='C') and (i.upper()!='D') and (i.upper()!='E') and (i.upper()!='F'):
-                number_test = False
+                return False
             else:
-                number_test = True
-        return number_test
+                return True
+        # return number_test
     
     # Check if the number matches with its base
     def match_base_number(self, number_str, base_option_str):
@@ -123,17 +126,17 @@ class MyGridLayout(GridLayout):
             digits_str = self.separate_digits_str(number_str)
             for i in range(len(digits_str)):
 
-                if digits_str[i] == 'A':
+                if digits_str[i].upper() == 'A':
                     digit = 10
-                elif digits_str[i] == 'B':
+                elif digits_str[i].upper() == 'B':
                     digit = 11
-                elif digits_str[i] == 'C':
+                elif digits_str[i].upper() == 'C':
                     digit = 12
-                elif digits_str[i] == 'D':
+                elif digits_str[i].upper() == 'D':
                     digit = 13
-                elif digits_str[i] == 'E':
+                elif digits_str[i].upper() == 'E':
                     digit = 14
-                elif digits_str[i] == 'F':
+                elif digits_str[i].upper() == 'F':
                     digit = 15
                 else:
                     digit = int(digits_str[i])
@@ -234,10 +237,10 @@ class MyGridLayout(GridLayout):
     def press(self, instance):
 
         if self.base_option_str.text == "" or self.number_str.text == "":
-            self.answer1.text = f"FALTA"
-            self.answer2.text = f"base"
-            self.answer3.text = f"e/ou"
-            self.answer4.text = f"número"
+            self.answer1.text = "FALTA"
+            self.answer2.text = "base"
+            self.answer3.text = "e/ou"
+            self.answer4.text = "número"
         else:
         
             base_option_str = self.base_option_str.text
@@ -248,12 +251,21 @@ class MyGridLayout(GridLayout):
             match_base_number_teste = self.match_base_number(number_str, base_option_str)
 
             if base_text_test == False:
-                self.answer.text = "Base inválida - digite o nº da opção."
+                self.answer1.text = "Base inválida!"
+                self.answer2.text = "Digite apenas"
+                self.answer3.text = "o nº da opção."
+                self.answer4.text = ""
             elif base_text_test == True:
                 if number_text_test == False:
-                    self.answer.text = "Número inválido - verifique"
+                    self.answer1.text = "Número inválido"
+                    self.answer2.text = "verifique!"
+                    self.answer3.text = "Não negativos!"
+                    self.answer4.text = "Sem vírgula!"
                 elif match_base_number_teste == False:
-                    self.answer.text = "O seu número não é da base que você indicou."
+                    self.answer1.text = "O seu número"
+                    self.answer2.text = "não é da base"
+                    self.answer3.text = "que você indicou."
+                    self.answer4.text = "Verifique!"
                 else:
                     self.convert_to_bases(number_str, base_option_str)
 
