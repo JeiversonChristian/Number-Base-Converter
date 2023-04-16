@@ -164,6 +164,18 @@ class MyGridLayout(GridLayout):
             div_int = number_base_dec_int // specifc_base
             number_base_dec_int = div_int
         if div_int > 9:
+            if div_int == 10:
+                dig_hex = 'A'
+            elif div_int == 11:
+                dig_hex = 'B'
+            elif div_int == 12:
+                dig_hex = 'C'
+            elif div_int == 13:
+                dig_hex = 'D'
+            elif div_int == 14:
+                dig_hex = 'E'
+            else:
+                dig_hex = 'F'
             converted_number_reverse.append(dig_hex)
         else:
             converted_number_reverse.append(div_int)
