@@ -3,6 +3,8 @@
 ### Mobile application that converts a number in a numerical base to all other available ones.
 --------
 
+## Projeto concluído
+
 [![video do meu app](https://img.youtube.com/vi/wPeIfB8kw9A/0.jpg)](https://www.youtube.com/watch?v=wPeIfB8kw9A)
 
 
